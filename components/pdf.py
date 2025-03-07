@@ -12,8 +12,8 @@ from components.messages import insert_message, get_messages
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 
-os.environ["GOOGLE_API_KEY"] = os.environ.get("GOOGLE_API_KEY")
-os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
+os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-exp")
 

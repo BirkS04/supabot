@@ -1,16 +1,12 @@
-import os
-import dotenv
-dotenv.load_dotenv()
-import jwt
 import streamlit as st
 
-from supabase import create_client, Client
+from supabase import create_client
 
-url = os.environ.get("SUPABASE_URL")
-key = os.environ.get("SUPABASE_KEY")
+url = st.secrets["SUPABASE_URL"]
+key = st.secrets["SUPABASE_KEY"]
 supabase = create_client(url, key)
 
-jwt_secret = os.environ.get("SUPABASE_JWT")
+jwt_secret = st.secrets["SUPABASE_JWT"]
 
 
 def create_user(email, password, password_confirmation):
@@ -19,7 +15,7 @@ def create_user(email, password, password_confirmation):
     try:
         response = supabase.auth.sign_up(
             {
-                "email": email, 
+                "email": email,
                 "password": password,
             }
         )

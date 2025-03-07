@@ -15,8 +15,8 @@ from supabase import create_client, Client
 load_dotenv()
 
 
-os.environ["GOOGLE_API_KEY"] = os.environ.get("GOOGLE_API_KEY")
-os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
+os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-exp")
 
 sess = st.session_state
