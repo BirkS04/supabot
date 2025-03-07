@@ -44,3 +44,13 @@ def delete_chat_and_messages(chat_id):
 
     return [response, response2]
 
+
+def update_chat_last_used(chat_id):
+    response = (
+        supabase.table("chats")
+        .update({"last_used": "now()"})
+        .eq("id", chat_id)
+        .execute()
+    )
+    return response
+

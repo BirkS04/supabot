@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 
 from components.messages import insert_message, get_messages
-from components.chats import insert_chat, get_chats, delete_chat_and_messages
+from components.chats import insert_chat, get_chats, delete_chat_and_messages, update_chat_last_used
 from components.users import create_user, sign_in_user
 from components.pdf import extract_pdf_content_as_json, main, umformen, image_to_base64, file_content, invoke_and_add
 
@@ -59,6 +59,7 @@ def list_chats_and_current(chats: list):
         if button:
             sess.current_chat.pop(0)
             sess.current_chat.append(chat)
+            update_chat_last_used(chat_id)
 
 st.title("🤖Bot🤖")
 
