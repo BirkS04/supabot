@@ -5,3 +5,4 @@ pymupdf==1.25.1
 streamlit
 langchain-google-genai
 pyjwt
+PyPDF2
