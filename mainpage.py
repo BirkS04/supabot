@@ -60,6 +60,7 @@ def list_chats_and_current(chats: list):
             sess.current_chat.pop(0)
             sess.current_chat.append(chat)
             update_chat_last_used(chat_id)
+            st.rerun(scope="app")
 
 st.title("🤖Bot🤖")
 
