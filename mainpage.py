@@ -205,7 +205,7 @@ if sess.logged_in:
             id = msg["id"]
             role = msg["role"]
             content = msg["content"]
-            st.write(content)
+            print(content)
             if role == "system":
                 with st.chat_message(role):
                     st.markdown(content)
