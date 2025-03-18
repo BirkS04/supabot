@@ -216,6 +216,7 @@ if sess.logged_in:
             else:
                 with st.chat_message(role):
                     st.markdown(content)
+            st.write(content)
 
         if query:
             invoke_and_add(query=query, chat_id=sess.current_chat[0]["id"])
