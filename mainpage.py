@@ -1,12 +1,13 @@
 import os
 import streamlit as st
+import webbrowser
 import json
 from dotenv import load_dotenv
 
 
 from components.messages import insert_message, get_messages
 from components.chats import insert_chat, get_chats, delete_chat_and_messages, update_chat_last_used
-from components.users import create_user, sign_in_user
+from components.users import create_user, sign_in_user, google_login
 from components.pdf import extract_pdf_content_as_json, main, umformen, image_to_base64, file_content, invoke_and_add
 
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -17,7 +18,8 @@ load_dotenv()
 
 os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-exp")
+# llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-exp")
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro-exp-03-25")
 
 sess = st.session_state
 # Initialize session state variables if they don't already exist.  These are used to store various aspects of the application's state.
@@ -95,7 +97,12 @@ if not sess.logged_in:
                     sess.logged_in = True
                     st.rerun(scope="app")
                     sess.rerun_counter += 1
-
+        google_login_btn = st.button("Google Login")
+        if google_login_btn:
+            # response = google_login()
+            # url = response.url
+            url = "https://oehyvknmwfeqyjpxvdwr.supabase.co/auth/v1/authorize?provider=google"
+            webbrowser.open(url)
 # st.write(sess.rerun_counter)
 if sess.logged_in:
     st.write("Logged In")
@@ -209,7 +216,7 @@ if sess.logged_in:
                 with st.chat_message(role):
                     st.markdown(content)
             elif role == "pdf":
-                with st.expander(label=f":page_facing_up: Your PDF"):
+                with st.expander(label=":page_facing_up: Your PDF"):
                     json_string = json.loads(content)
                     for i, item in enumerate(json_string):
                         st.text_area(label=f"{i}",value=item, height=200, key=f"{id},{i}")

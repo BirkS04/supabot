@@ -37,3 +37,11 @@ def sign_in_user(email, password):
     except Exception as e:
         st.error("Invalid email or password")
         return None
+
+def google_login():
+    response = supabase.auth.sign_in_with_oauth(
+        {
+            "provider": "google",
+        }
+    )
+    return response
