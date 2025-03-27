@@ -212,6 +212,7 @@ if sess.logged_in:
             id = msg["id"]
             role = msg["role"]
             content = msg["content"]
+            print(content)
             if role == "system":
                 with st.chat_message(role):
                     st.markdown(content)
@@ -223,6 +224,8 @@ if sess.logged_in:
             else:
                 with st.chat_message(role):
                     st.markdown(content)
+                    
+            
 
         if query:
             invoke_and_add(query=query, chat_id=sess.current_chat[0]["id"])
